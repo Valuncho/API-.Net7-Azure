@@ -1,4 +1,5 @@
 using API_.Net_Azure.DataAcces;
+using API_.Net_Azure.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,8 +15,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     options =>
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnection"));
-    }
-    );
+    });
+
+builder.Services.AddTransient<IProductService, ProductService>();
 
 var app = builder.Build();
 
